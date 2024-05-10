@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles/main.css" />
+    <title>Admin Sign In</title>
+  </head>
+  <body>
+    <div class="container">
+      <form action="/new-post" method="POST" class="sign-in-form">
+        <label for="title">post title</label>
+        <input
+          type="text"
+          id="title"
+          name="title"
+          style="width: 1000px"
+          required
+        />
+
+        <label for="body">post body</label>
+        <input
+          type="text"
+          id="body"
+          name="body"
+          style="width: 1000px; height: 500px"
+          required
+        />
+
+        <label for="lccn">lccn</label>
+        <input
+          type="text"
+          id="lccn"
+          name="lccn"
+          style="width: 1000px"
+          required
+        />
+
+        <button class="authenticate-button" type="submit">post</button>
+      </form>
+    </div>
+  </body>
+</html>
