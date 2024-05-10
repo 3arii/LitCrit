@@ -19,13 +19,42 @@ html {
 .body {
   margin-left: 4%;
   display: flex;
+  flex-direction: column;
   align-items: flex-start;
 }
 
+.post {
+  display: flex;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
 .text-content {
-  line-height: 0;
-  margin: 0 3%;
+  line-height: 1.6;
+  margin-left: 20px;
+  max-width: 600px;
+}
+
+.sign-in-btn {
+  color: black;
+  font-size: 25px;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.container {
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
+  min-height: 100vh;
+}
+
+.sign-in-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 300px; /* Adjust based on your preference */
+  gap: 15px;
 }

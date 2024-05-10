@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles/main.css" />
+    <title>Admin Sign In</title>
+  </head>
+  <body>
+    <div class="container">
+      <form action="/authenticate" method="POST" class="sign-in-form">
+        <label for="username">username</label>
+        <input type="text" id="username" name="username" required />
+
+        <label for="password">password</label>
+        <input type="text" id="password" name="password" required />
+
+        <button class="authenticate-button" type="submit">sign in</button>
+      </form>
+    </div>
+  </body>
+</html>

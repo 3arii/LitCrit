@@ -9,19 +9,25 @@
   <body>
     <div class="header">
       <h1>welcome to litcrit</h1>
-      <h1>sign in</h1>
+      <a href="/admin-sign-in" class="sign-in-btn">sign in</a>
     </div>
     <div class="body">
-      <img
-        src="https://covers.openlibrary.org/b/id/295577-L.jpg"
-        alt="book cover"
-        height="300"
-        width="200"
-      />
-      <div class="text-content">
-        <h2 class="book-title">Test Book Title</h2>
-        <p>Test Book Description</p>
+      <% if (posts && posts.length > 0) { %> <% posts.forEach(post => { %>
+      <div class="post">
+        <img
+          src="https://covers.openlibrary.org/b/lccn/<%= post.lccn %>-L.jpg"
+          alt="book cover"
+          height="300"
+          width="200"
+        />
+        <div class="text-content">
+          <h2 class="book-title"><%= post.title %></h2>
+          <p><%= post.body %></p>
+        </div>
       </div>
+      <% }) %> <% } else { %>
+      <p>No posts found.</p>
+      <% } %>
     </div>
   </body>
 </html>
