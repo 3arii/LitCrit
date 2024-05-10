@@ -38,11 +38,11 @@ app.get("/", async (req, res) => {
     if (token) {
       const decoded = jwt.verify(token, SECRET_KEY);
       if (decoded) {
-        res.render("admin_index.ejs");
+        res.render("admin_index.ejs", { posts });
       }
+    } else {
+      res.render("index.ejs", { posts });
     }
-
-    res.render("index.ejs", { posts });
   } catch (error) {
     console.log(`error in fetching the posts: ${error}`);
     res.status(505).send("unable to fetch the posts");
@@ -51,6 +51,7 @@ app.get("/", async (req, res) => {
 
 app.post("/authenticate", async (req, res) => {
   const { username, password } = req.body;
+  const posts = await Post.find();
 
   try {
     const admin = await Admin.findOne({ username });
@@ -59,7 +60,7 @@ app.post("/authenticate", async (req, res) => {
       const token = jwt.sign({ username }, SECRET_KEY, { expiresIn: "24h" });
 
       res.cookie("authToken", token, { httpOnly: true, maxAge: 3600000 });
-      res.render("write_post.ejs");
+      res.render("admin_index.ejs", { posts });
     } else {
       res.status(401).send("Invalid Credentials");
     }
@@ -91,8 +92,83 @@ app.post("/new-post", async (req, res) => {
   }
 });
 
+app.get("/edit-post/:id", async (req, res) => {
+  const post_id = req.params.id;
+
+  try {
+    const token = req.cookies.authToken;
+    if (!token) {
+      return res.status(403).send("access denied, sign in before editing");
+    }
+
+    const decoded = jwt.verify(token, SECRET_KEY);
+    if (!decoded) {
+      return res.status(401).send("invalid token");
+    }
+
+    const post = await Post.findById(post_id);
+    res.render("edit_post.ejs", { post });
+  } catch (error) {
+    res.status(500).send(`error when fetching: ${error}`);
+  }
+});
+
+app.post("/edit-post/:id", async (req, res) => {
+  const post_id = req.params.id;
+  const { title, body, lccn } = req.body;
+
+  try {
+    const token = req.cookies.authToken;
+    if (!token) {
+      return res.status(403).send("access denied, sign in before editing");
+    }
+
+    const decoded = jwt.verify(token, SECRET_KEY);
+    if (!decoded) {
+      return res.status(401).send("invalid token");
+    }
+
+    await Post.findByIdAndUpdate(post_id, { title, body, lccn });
+    res.redirect("/");
+  } catch (error) {
+    console.log(`error while editing: ${error}.`);
+  }
+});
+
+app.post("/delete-post/:id", async (req, res) => {
+  const post_id = req.params.id;
+
+  try {
+    const token = req.cookies.authToken;
+    if (!token) {
+      return res
+        .status(403)
+        .send("Access denied, please sign in before deleting");
+    }
+
+    const decoded = jwt.verify(token, SECRET_KEY);
+    if (!decoded) {
+      return res.status(401).send("Invalid token");
+    }
+
+    await Post.findByIdAndDelete(post_id);
+    res.redirect("/");
+  } catch (error) {
+    console.log(`Error while deleting: ${error}`);
+    res.status(500).send(`Error while deleting post: ${error}`);
+  }
+});
+
 app.get("/admin-sign-in", (req, res) => {
-  res.render("admin-sign-in.ejs");
+  const token = req.cookies.authToken;
+  if (token) {
+    const decoded = jwt.verify(token, SECRET_KEY);
+    if (decoded) {
+      res.render("write_post.ejs");
+    }
+  } else {
+    res.render("admin-sign-in.ejs");
+  }
 });
 
 app.listen(PORT, () => {

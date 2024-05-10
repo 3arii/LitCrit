@@ -3,17 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles/main.css" />
-    <title>write post</title>
+    <link rel="stylesheet" href="/styles/main.css" />
+    <title>edit post</title>
   </head>
   <body>
     <div class="container">
-      <form action="/new-post" method="POST" class="sign-in-form">
+      <form
+        action="/edit-post/<%= post._id %>"
+        method="POST"
+        class="sign-in-form"
+      >
         <label for="title">post title</label>
         <input
           type="text"
           id="title"
           name="title"
+          value="<%= post.title %>"
           style="width: 1000px"
           required
         />
@@ -24,18 +29,21 @@
           name="body"
           style="width: 1000px; height: 500px"
           required
-        ></textarea>
+        >
+<%= post.body %></textarea
+        >
 
         <label for="lccn">lccn</label>
         <input
           type="text"
           id="lccn"
           name="lccn"
+          value="<%= post.lccn %>"
           style="width: 1000px"
           required
         />
 
-        <button class="authenticate-button" type="submit">post</button>
+        <button class="authenticate-button" type="submit">edit</button>
       </form>
     </div>
   </body>

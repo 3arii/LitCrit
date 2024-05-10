@@ -3,9 +3,51 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <link rel="stylesheet" href="styles/main.css" />
+    <!-- Link to Font Awesome for the icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <title>admin panel - litcrit</title>
   </head>
   <body>
-    test
+    <div class="header">
+      <h1>welcome to admin panel</h1>
+      <a href="/admin-sign-in" class="sign-in-btn">create new post</a>
+    </div>
+    <div class="body">
+      <% if (posts && posts.length > 0) { %> <% posts.forEach(post => { %>
+      <div class="post">
+        <img
+          src="https://covers.openlibrary.org/b/lccn/<%= post.lccn %>-L.jpg"
+          alt="book cover"
+          height="300"
+          width="200"
+        />
+        <div class="text-content">
+          <h2 class="book-title"><%= post.title %></h2>
+          <p><%= post.body %></p>
+          <!-- Edit and Delete Icons -->
+          <div class="admin-actions">
+            <a href="/edit-post/<%= post._id %>" class="edit-post">
+              <i class="fas fa-edit"></i> edit
+            </a>
+            <form
+              action="/delete-post/<%= post._id %>"
+              method="POST"
+              class="delete-button"
+            >
+              <button type="submit" class="delete-post">
+                <i class="fas fa-trash-alt"></i> delete
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <% }) %> <% } else { %>
+      <p>No posts found.</p>
+      <% } %>
+    </div>
   </body>
 </html>

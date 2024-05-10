@@ -6,6 +6,23 @@ html {
   background-color: #fff6e9;
 }
 
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.delete-button {
+  background: none;
+  border: none;
+  color: blue; /* This makes the button text look like a link */
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+  font-family: inherit; /* Matches the surrounding font */
+  font-size: inherit;
+  display: inline;
+}
+
 .header {
   margin: 4%;
   position: sticky;
