@@ -5,10 +5,10 @@ simple, stylistic book reviewing app with mongodb
 ## features
 
 ![main page](/images/litcrit-main.png)
-stylistic main page, with book descriptions and titles that are fetched from the public library api /
+stylistic main page, with book descriptions and titles that are fetched from the public library api
 
 ![admin page](/images/litcrit-admin.png)
-admin page where you can edit and delete all the posts/
+admin page where you can edit and delete all the posts
 
 ![edit page](/images/litcrit-edit.png)
 you can edit the posts (wow shocking)
